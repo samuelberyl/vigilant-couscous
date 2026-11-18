@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TAPHY MEME 😂🔥 | Meme Maker Homabay - Tengeneza Meme!</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
+body{background:#0a0a0a;color:white;padding-bottom:80px}
+header{background:linear-gradient(135deg,#ff0055,#ff6600);color:white;padding:14px 16px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:20}
+header b{font-size:18px}
+header button{background:white;color:#ff0055;border:none;padding:8px 14px;border-radius:20px;font-weight:bold;cursor:pointer}
+.hero{padding:20px 16px;text-align:center}
+.hero h1{font-size:30px;line-height:1.1}
+.hero h1 span{color:#ff0055}
+.hero p{color:#aaa;font-size:13px;margin:8px 0}
+.memeCard{background:white;color:#111;border-radius:18px;margin:0 16px 12px;overflow:hidden;box-shadow:0 4px 15px rgba(0,0,0,0.3)}
+.memeCard .topText{background:#111;color:white;padding:10px;text-align:center;font-weight:900;font-size:16px;text-transform:uppercase;line-height:1.3}
+.memeCard .img{height:180px;display:flex;align-items:center;justify-content:center;font-size:90px;position:relative}
+.memeCard .bottomText{background:white;padding:10px;text-align:center;font-weight:900;font-size:16px;text-transform:uppercase;line-height:1.3}
+.memeCard .actions{display:flex;gap:8px;padding:10px}
+.memeCard .actions button{flex:1;padding:10px;border:none;border-radius:10px;font-weight:bold;cursor:pointer}
+.controls{background:#1e1e1e;border:1px solid #333;border-radius:18px;padding:16px;margin:0 16px 12px}
+.controls h3{margin-bottom:10px}
+.controls input{width:100%;padding:12px;border-radius:12px;border:1px solid #333;background:#111;color:white;margin:6px 0;outline:none}
+.controls .templates{display:flex;gap:10px;overflow-x:auto;padding:5px 0}
+.controls .templates button{flex-shrink:0;width:70px;height:70px;border-radius:12px;border:2px solid transparent;font-size:36px;cursor:pointer;background:#222}
+.controls .templates button.active{border-color:#ff0055}
+.btn{width:100%;padding:13px;border:none;border-radius:12px;font-weight:bold;cursor:pointer}
+.card{background:#1e1e1e;border-radius:18px;padding:16px;margin:0 16px 12px;border:1px solid #333}
+.card h3{margin-bottom:8px}
+.card p{font-size:13px;color:#aaa;line-height:1.6}
+.bottom-nav{position:fixed;bottom:0;left:0;width:100%;background:#111;border-top:1px solid #333;padding:10px;display:flex;justify-content:space-around;font-size:11px;z-index:30}
+.bottom-nav div{text-align:center;cursor:pointer;color:#888}
+.bottom-nav div.active{color:#ff0055;font-weight:bold}
+.bottom-nav div span{display:block;font-size:22px}
+.modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.9);z-index:99;justify-content:center;align-items:flex-end}
+.modalBox{background:#1e1e1e;width:100%;max-width:500px;border-radius:20px 20px 0 0;padding:20px;max-height:85vh;overflow-y:auto}
+.modalBox button{padding:11px 16px;border-radius:10px;border:none;font-weight:bold;cursor:pointer;margin:5px}
+</style>
+</head>
+<body>
+
+<header><b>😂 TAPHY MEME</b><button onclick="randomMeme()">🎲 Random</button></header>
+
+<div class="hero">
+<h1>Tengeneza Meme<br><span>Chekesha Watu! 😂🔥</span></h1>
+<p>Homabay Memes • Free • Share WhatsApp!<br>🔥 500+ Memes Zimetengenezwa!</p>
+</div>
+
+<!-- MAIN MEME - LIVE EDIT -->
+<div class="memeCard" id="mainMeme">
+<div class="topText" id="topText">WAKATI MAMA ANASMA</div>
+<div class="img" id="memeImg" style="background:linear-gradient(135deg,#ff0055,#ff6600)"><span id="memeEmoji">😱</span></div>
+<div class="bottomText" id="bottomText">NA WEWE UMEKULA CHAKULA CHA JIONI</div>
+<div class="actions">
+<button style="background:#ff0055;color:white" onclick="likeMeme(this)">❤️ Like</button>
+<button style="background:#25D366;color:white" onclick="showToast('📲 Meme shared via WhatsApp!')">📲 Share</button>
+<button style="background:#111;color:white" onclick="downloadMeme()">💾 Save</button>
+</div>
+</div>
+
+<div class="controls">
+<h3>✍️ Tengeneza Meme Yako!</h3>
+<p style="font-size:12px;color:#aaa;margin-bottom:8px">Andika maneno yako hapo chini, meme inabadilika LIVE!</p>
+<input type="text" id="inputTop" placeholder="Top Text... e.g. WAKATI MAMA ANASMA" value="WAKATI MAMA ANASMA" oninput="updateMeme()">
+<input type="text" id="inputBottom" placeholder="Bottom Text... e.g. NA WEWE UMEKULA" value="NA WEWE UMEKULA CHAKULA CHA JIONI" oninput="updateMeme()">
+<p style="font-size:13px;color:#aaa;margin:10px 0 5px">Chagua Picha:</p>
+<div class="templates">
+<button class="active" onclick="changeTemplate('😱','#ff0055,#ff6600',this)">😱</button>
+<button onclick="changeTemplate('😂','#0066cc,#00d2ff',this)">😂</button>
+<button onclick="changeTemplate('🤣','#00a651,#00ff88',this)">🤣</button>
+<button onclick="changeTemplate('😎','#6c5ce7,#a29bfe',this)">😎</button>
+<button onclick="changeTemplate('🔥','#e50914,#ff9900',this)">🔥</button>
+<button onclick="changeTemplate('💖','#ff0055,#ff99cc',this)">💖</button>
+<button onclick="changeTemplate('🐟','#0066cc,#00ff88',this)">🐟</button>
+<button onclick="changeTemplate('⚽','#00a651,#ffcc00',this)">⚽</button>
+</div>
+<button class="btn" style="background:#ff0055;color:white;margin-top:10px" onclick="createMeme()">Create Meme →</button>
+</div>
+
+<div style="padding:0 16px 10px"><h3>🔥 Trending Memes - Homabay</h3></div>
+
+<div class="memeCard">
+<div class="topText">MTU WA HOMABAY AKIONA LAKE VICTORIA</div>
+<div class="img" style="background:linear-gradient(135deg,#0066cc,#00d2ff)">🌊</div>
+<div class="bottomText">HII NI YETU! 🇰🇪</div>
+<div class="actions"><button style="background:#ff0055;color:white" onclick="likeMeme(this)">❤️ 2.1K</button><button style="background:#25D366;color:white" onclick="showToast('📲 Shared!')">📲 Share</button><button style="background:#111;color:white" onclick="useMeme('MTU WA HOMABAY AKIONA LAKE VICTORIA','HII NI YETU! 🇰🇪','🌊','#0066cc,#00d2ff')">Use This →</button></div>
+</div>
+
+<div class="memeCard">
+<div class="topText">MIMI NIKISIKIA MVUA INAKUJA</div>
+<div class="img" style="background:linear-gradient(135deg,#6c5ce7,#a29bfe)">🌧️</div>
+<div class="bottomText">WAKULIMA TUNAFURAHI! 🌱</div>
+<div class="actions"><button style="background:#ff0055;color:white" onclick="likeMeme(this)">❤️ 1.5K</button><button style="background:#25D366;color:white" onclick="showToast('📲 Shared!')">📲 Share</button><button style="background:#111;color:white" onclick="useMeme('MIMI NIKISIKIA MVUA INAKUJA','WAKULIMA TUNAFURAHI! 🌱','🌧️','#6c5ce7,#a29bfe')">Use This →</button></div>
+</div>
+
+<div class="memeCard">
+<div class="topText">RYAN AKIFUNGA GOLI HOMABAY STARS</div>
+<div class="img" style="background:linear-gradient(135deg,#00a651,#00ff88)">⚽</div>
+<div class="bottomText">MASHABIKI WOTE: GOOOOAL! 🔥</div>
+<div class="actions"><button style="background:#ff0055;color:white" onclick="likeMeme(this)">❤️ 3K</button><button style="background:#25D366;color:white" onclick="showToast('📲 Shared!')">📲 Share</button><button style="background:#111;color:white" onclick="useMeme('RYAN AKIFUNGA GOLI HOMABAY STARS','MASHABIKI WOTE: GOOOOAL! 🔥','⚽','#00a651,#00ff88')">Use This →</button></div>
+</div>
+
+<div style="text-align:center;color:#888;font-size:12px;padding:10px">Taphy Meme • Homabay • Made by Taphy Samson 🇰🇪<br>Cheka • Tengeneza • Share!</div>
+
+<div class="bottom-nav">
+<div class="active"><span>😂</span>Home</div>
+<div onclick="randomMeme()"><span>🎲</span>Random</div>
+<div onclick="createMeme()"><span>✍️</span>Create</div>
+<div onclick="showToast('❤️ Liked: 10 memes!')"><span>❤️</span>Liked</div>
+<div onclick="showToast('🔥 Trending: Ryan Goli!')"><span>🔥</span>Trending</div>
+</div>
+
+<div class="modal" id="modal"><div class="modalBox"><div id="modalContent"></div><button style="background:white;color:#111;width:100%" onclick="closeModal()">Close ✕</button></div></div>
+<div id="toast" style="position:fixed;top:70px;left:50%;transform:translateX(-50%);background:#ff0055;color:white;padding:10px 18px;border-radius:20px;font-weight:bold;font-size:13px;z-index:100;display:none"></div>
+
+<script>
+let memes=[
+{top:'WAKATI MAMA ANASMA',bottom:'NA WEWE UMEKULA CHAKULA CHA JIONI',emoji:'😱',bg:'#ff0055,#ff6600'},
+{top:'MIMI NIKIONA SAMAKI SOKO MJINGA',bottom:'BEI IMEPUNGUA! NUNUA 5!',emoji:'🐟',bg:'#0066cc,#00ff88'},
+{top:'WAKATI WALIMU WANASEMA KESHO NI MTIHANI',bottom:'LAKINI HUJASOMA!',emoji:'😭',bg:'#6c5ce7,#a29bfe'},
+{top:'MIMI NIKISIKIA HOMABAY STARS WASHINDA',bottom:'NAANZA KUCHEZA KAMA RYAN!',emoji:'⚽',bg:'#00a651,#00ff88'},
+{top:'WAKATI WIFI INAKATA',bottom:'NA VIDEO INA-LOAD...',emoji:'😡',bg:'#e50914,#ff9900'},
+];
+let idx=0;
+function showToast(m){ let t=document.getElementById('toast'); t.innerText=m; t.style.display='block'; setTimeout(()=>t.style.display='none',2500); }
+function updateMeme(){
+  document.getElementById('topText').innerText=document.getElementById('inputTop').value||'TOP TEXT';
+  document.getElementById('bottomText').innerText=document.getElementById('inputBottom').value||'BOTTOM TEXT';
+}
+function changeTemplate(emoji,bg,btn){
+  document.querySelectorAll('.templates button').forEach(b=>b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  document.getElementById('memeEmoji').innerText=emoji;
+  document.getElementById('memeImg').style.background='linear-gradient(135deg,'+bg+')';
+  showToast('Picha changed: '+emoji);
+}
+function createMeme(){
+  updateMeme();
+  showToast('😂 Meme Created! Share sasa!');
+  document.getElementById('mainMeme').scrollIntoView({behavior:'smooth'});
+}
+function randomMeme(){
+  idx=(idx+1)%memes.length; let m=memes[idx];
+  document.getElementById('inputTop').value=m.top;
+  document.getElementById('inputBottom').value=m.bottom;
+  document.getElementById('memeEmoji').innerText=m.emoji;
+  document.getElementById('memeImg').style.background='linear-gradient(135deg,'+m.bg+')';
+  updateMeme();
+  showToast('🎲 Random Meme!');
+}
+function useMeme(top,bottom,emoji,bg){
+  document.getElementById('inputTop').value=top;
+  document.getElementById('inputBottom').value=bottom;
+  document.getElementById('memeEmoji').innerText=emoji;
+  document.getElementById('memeImg').style.background='linear-gradient(135deg,'+bg+')';
+  updateMeme();
+  document.getElementById('mainMeme').scrollIntoView({behavior:'smooth'});
+  showToast('Meme loaded! Edit sasa!');
+}
+function likeMeme(btn){ showToast('❤️ Meme Liked!'); btn.innerText='❤️ Liked!'; }
+function downloadMeme(){ showToast('💾 Meme Saved! Check Gallery!'); }
+function closeModal(){ document.getElementById('modal').style.display='none'; }
+</script>
+</body>
+</html>
